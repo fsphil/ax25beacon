@@ -1,0 +1,5 @@
+*~
+*.wav
+*.o
+ax25beacon
+ax25frame

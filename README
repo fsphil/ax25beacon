@@ -1,0 +1,18 @@
+
+ax25beacon - Created by Philip Heron <phil@sanslogic.co.uk>
+
+This simple command line program generates the audio tones for an
+AX.25 packet for use on the APRS network. It encodes position, altitude
+and an optional comment field.
+
+INSTALLING
+
+Run the following commands in the source folder to build and install ax25beacon:
+
+make
+make install
+
+Requires the libao development files to be installed.
+
+-Philip Heron <phil@sanslogic.co.uk>
+
