@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 	char *path1 = NULL;
 	char *path2 = NULL;
 	
-	ax25_init(&ax25);
+	ax25_init(&ax25, AX25_AFSK1200);
 	
 	while((x = getopt(argc, argv, "s:d:p:r:P:R:o:")) != -1)
 	{

@@ -23,12 +23,20 @@
 #include <math.h>
 #include "ax25.h"
 
-#define AX25_SAMPLERATE     (48000)
-#define AX25_BITRATE        (1200)
-#define AX25_FREQ1          (1200)
-#define AX25_FREQ2          (2200)
-#define AX25_PREAMBLE_BYTES (25)
-#define AX25_REST_BYTES     (5)
+/* Default configuration */
+#define AX25_AFSK1200_SAMPLERATE     (48000)
+#define AX25_AFSK1200_BITRATE        (1200)
+#define AX25_AFSK1200_FREQ1          (1200)
+#define AX25_AFSK1200_FREQ2          (2200)
+#define AX25_AFSK1200_PREAMBLE_BYTES (25)
+#define AX25_AFSK1200_REST_BYTES     (5)
+
+#define AX25_AFSK2400_SAMPLERATE     (48000)
+#define AX25_AFSK2400_BITRATE        (2400)
+#define AX25_AFSK2400_FREQ1          (2400)
+#define AX25_AFSK2400_FREQ2          (4400)
+#define AX25_AFSK2400_PREAMBLE_BYTES (25)
+#define AX25_AFSK2400_REST_BYTES     (5)
 
 char *ax25_base91enc(char *s, uint8_t n, uint32_t v)
 {
@@ -123,14 +131,27 @@ static size_t _ax25_tx(ax25_t *ax25, int16_t *wav, uint8_t *frame, size_t length
 	return(len);
 }
 
-ax25_t *ax25_init(ax25_t *ax25)
+ax25_t *ax25_init(ax25_t *ax25, ax25_mode_t mode)
 {
-	ax25->samplerate = AX25_SAMPLERATE;
-	ax25->bitrate = AX25_BITRATE;
-	ax25->freq1 = AX25_FREQ1;
-	ax25->freq2 = AX25_FREQ2;
-	ax25->preamble = AX25_PREAMBLE_BYTES;
-	ax25->rest = AX25_REST_BYTES;
+	switch(mode)
+	{
+	case AX25_AFSK1200:
+		ax25->samplerate = AX25_AFSK1200_SAMPLERATE;
+		ax25->bitrate    = AX25_AFSK1200_BITRATE;
+		ax25->freq1      = AX25_AFSK1200_FREQ1;
+		ax25->freq2      = AX25_AFSK1200_FREQ2;
+		ax25->preamble   = AX25_AFSK1200_PREAMBLE_BYTES;
+		ax25->rest       = AX25_AFSK1200_REST_BYTES;
+		break;
+	case AX25_AFSK2400:
+		ax25->samplerate = AX25_AFSK2400_SAMPLERATE;
+		ax25->bitrate    = AX25_AFSK2400_BITRATE;
+		ax25->freq1      = AX25_AFSK2400_FREQ1;
+		ax25->freq2      = AX25_AFSK2400_FREQ2;
+		ax25->preamble   = AX25_AFSK2400_PREAMBLE_BYTES;
+		ax25->rest       = AX25_AFSK2400_REST_BYTES;
+		break;
+	}
 	
 	ax25->audio_callback = NULL;
 	ax25->audio_callback_data = NULL;

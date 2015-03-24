@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 	char slat[5], slng[5];
 	char *comment = NULL;
 	
-	ax25_init(&ax25);
+	ax25_init(&ax25, AX25_AFSK1200);
 	
 	while((x = getopt(argc, argv, "s:d:p:r:P:R:o:t:c:")) != -1)
 	{

@@ -27,10 +27,16 @@ extern "C" {
 /* I set one here to keep things sensible */
 #define AX25_MAX_LEN (512)
 
+typedef enum {
+	AX25_AFSK1200 = 0,
+	AX25_AFSK2400,
+} ax25_mode_t;
+
 typedef struct {
 	
 	/* Configuration */
 	uint16_t samplerate;
+	ax25_mode_t mode;
 	uint16_t bitrate;
 	uint16_t freq1;
 	uint16_t freq2;
@@ -49,7 +55,7 @@ typedef struct {
 } ax25_t;
 
 extern char *ax25_base91enc(char *s, uint8_t n, uint32_t v);
-extern ax25_t *ax25_init(ax25_t *ax25);
+extern ax25_t *ax25_init(ax25_t *ax25, ax25_mode_t mode);
 extern void ax25_set_audio_callback(ax25_t *ax25, void (*audio_callback)(void *, int16_t *, size_t), void *audio_callback_data);
 extern int ax25_frame(ax25_t *ax25, char *scallsign, char *dcallsign, char *path1, char *path2, char *data, ...);
 
