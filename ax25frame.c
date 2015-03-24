@@ -25,14 +25,16 @@ void _usage(void)
 {
 	fprintf(stderr,
 		"\n"
-		"Usage: ax25frame -s CALLSIGN[-NN] -d CALLSIGN[-NN] [-p PATH[-TTL]] [-r SAMPLERATE] [-o OUTPUT.WAV] DATA\n"
+		"Usage: ax25frame -s CALLSIGN[-NN] -d CALLSIGN[-NN] [-p PATH[-TTL]] [-r SAMPLERATE] [-P BYTES] [-R BYTES] [-o OUTPUT.WAV] DATA\n"
 		"\n"
 		"   -s CALLSIGN[-NN]   Sender callsign and optional SSID.\n"
 		"   -d CALLSIGN[-NN]   Optional destination callsign and SSID.\n"
-		"                      Defaults to APRS.\n"
+		"                      Defaults to \"APRS\".\n"
 		"   -p PATH[-TTL]      Add a path with optional TTL.\n"
 		"                      Up to two paths can be specified.\n"
 		"   -r SAMPLERATE      The sample rate to use. Defaults to 48000Hz.\n"
+		"   -P BYTES           Number of preamble bytes to send. Default is 25.\n"
+		"   -R BYTES           Number of rest bytes to send. Default is 5.\n"
 		"   -o OUTPUT.WAV      Output the audio to the specified WAV file.\n"
 		"                      Defaults to the main audio device.\n"
 		"   DATA               The packet contents.\n"
@@ -68,7 +70,7 @@ int main(int argc, char *argv[])
 	
 	ax25_init(&ax25);
 	
-	while((x = getopt(argc, argv, "s:d:p:r:o:")) != -1)
+	while((x = getopt(argc, argv, "s:d:p:r:P:R:o:")) != -1)
 	{
 		switch(x)
 		{
@@ -87,6 +89,12 @@ int main(int argc, char *argv[])
 			break;
 		case 'r': /* Sample Rate */
 			ax25.samplerate = atoi(optarg);
+			break;
+		case 'P': /* Preamble bytes */
+			ax25.preamble = atoi(optarg);
+			break;
+		case 'R': /* Rest bytes */
+			ax25.rest = atoi(optarg);
 			break;
 		case 'o': /* Output WAV filename */
 			if(wavfile) _die("Only one output WAV file can be used\n");
