@@ -25,10 +25,11 @@ void _usage(void)
 {
 	fprintf(stderr,
 		"\n"
-		"Usage: ax25beacon -s CALLSIGN[-NN] -d CALLSIGN[-NN] [-p PATH[-TTL]] [-r SAMPLERATE] [-o OUTPUT.WAV] LATITUDE LONGITUDE ALTITUDE [COMMENT]\n"
+		"Usage: ax25beacon -s CALLSIGN[-NN] [-d CALLSIGN[-NN]] [-p PATH[-TTL]] [-r SAMPLERATE] [-o OUTPUT.WAV] LATITUDE LONGITUDE ALTITUDE [COMMENT]\n"
 		"\n"
-		"   -s CALLSIGN[-NN]   Sender callsign and optional SSID\n"
-		"   -d CALLSIGN[-NN]   Destination callsign and optional SSID\n"
+		"   -s CALLSIGN[-NN]   Sender callsign and optional SSID.\n"
+		"   -d CALLSIGN[-NN]   Optional destination callsign and SSID.\n"
+		"                      Defaults to APRS.\n"
 		"   -p PATH[-TTL]      Add a path with optional TTL.\n"
 		"                      Up to two paths can be specified.\n"
 		"   -r SAMPLERATE      The sample rate to use. Defaults to 48000Hz.\n"
@@ -106,7 +107,7 @@ int main(int argc, char *argv[])
 	}
 	
 	if(!src_callsign) _die("No sender callsign specified\n");
-	if(!dst_callsign) _die("No destination callsign specified\n");
+	if(!dst_callsign) dst_callsign = strdup("APRS");
 	
 	x = argc - optind;
 	if(x != 3 && x != 4) _usage();
