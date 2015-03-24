@@ -150,7 +150,7 @@ void ax25_set_audio_callback(ax25_t *ax25, void (*audio_callback)(void *, int16_
 
 int ax25_frame(ax25_t *ax25, char *scallsign, char *dcallsign, char *path1, char *path2, char *data, ...)
 {
-	uint8_t frame[AX25_MAX_LEN];
+	uint8_t frame[AX25_MAX_LEN + 1];
 	int16_t *wav;
 	size_t wav_len;
 	uint8_t *s;
@@ -171,7 +171,9 @@ int ax25_frame(ax25_t *ax25, char *scallsign, char *dcallsign, char *path1, char
 	*(s++) = 0x03; /* Control, 0x03 = APRS-UI frame */
 	*(s++) = 0xF0; /* Protocol ID: 0xF0 = no layer 3 data */
 	
-	vsnprintf((char *) s, AX25_MAX_LEN - (s - frame) - 2, data, va);
+	/* The maximum message length is AX25_MAX_LEN - callsigns - CRC */
+	/* 1 is added to allow room for vsnprintf's \0 at the end */
+	vsnprintf((char *) s, AX25_MAX_LEN - (s - frame) - 2 + 1, data, va);
 	va_end(va);
 	
 	/* Calculate and append the checksum */

@@ -23,7 +23,9 @@ extern "C" {
 #define AX25_OK            (0)
 #define AX25_OUT_OF_MEMORY (1)
 
-#define AX25_MAX_LEN (256) /* WARNING: I'm not sure what the limit of AX.25 really is */
+/* AX.25 does not define a maximum packet size */
+/* I set one here to keep things sensible */
+#define AX25_MAX_LEN (512)
 
 typedef struct {
 	
