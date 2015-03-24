@@ -176,6 +176,13 @@ int main(int argc, char *argv[])
 	ao_close(ao_out);
 	ao_shutdown();
 	
+	/* Free memory */
+	free(src_callsign);
+	free(dst_callsign);
+	if(path1) free(path1);
+	if(path2) free(path2);
+	if(wavfile) free(wavfile);
+	
 	return(0);
 }
 
