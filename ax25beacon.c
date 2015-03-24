@@ -47,7 +47,7 @@ void _usage(void)
 		"NOTE: When sending a negative coordinate, you must place -- before the value,\n"
 		"otherwise the value will be treated as an option. For example:\n"
 		"\n"
-		"   ax25beacon -s TEST -d APRS -- 54.61 -6.40 0\n"
+		"   ax25beacon -s MYCALL -- 54.61 -6.40 0\n"
 		"\n"
 	);
 	exit(-1);
