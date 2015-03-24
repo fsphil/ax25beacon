@@ -25,7 +25,7 @@ void _usage(void)
 {
 	fprintf(stderr,
 		"\n"
-		"Usage: ax25frame -s CALLSIGN[-NN] -d CALLSIGN[-NN] [-p PATH[-TTL]] [-r SAMPLERATE] [-P BYTES] [-R BYTES] [-o OUTPUT.WAV] DATA\n"
+		"Usage: ax25frame -s CALLSIGN[-NN] [-d CALLSIGN[-NN]] [-p PATH[-TTL]] [-r SAMPLERATE] [-P BYTES] [-R BYTES] [-o OUTPUT.WAV] DATA\n"
 		"\n"
 		"   -s CALLSIGN[-NN]   Sender callsign and optional SSID.\n"
 		"   -d CALLSIGN[-NN]   Optional destination callsign and SSID.\n"
